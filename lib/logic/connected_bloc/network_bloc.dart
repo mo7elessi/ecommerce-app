@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:flutter/material.dart';
 
 part 'network_event.dart';
@@ -8,25 +8,26 @@ part 'network_event.dart';
 part 'network_state.dart';
 
 class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
-  NetworkBloc() : super(ConnectionInitial());
+  NetworkBloc() : super(ConnectionInitial()) {
+    on<ListenConnection>(_onConnected);
+  }
 
-  late StreamSubscription _subscription;
+  StreamSubscription? _subscription;
 
-  @override
-  Stream<NetworkState> mapEventToState(NetworkEvent event) async* {
-    if (event is ListenConnection) {
-      _subscription = DataConnectionChecker().onStatusChange.listen((status) {
-        add(ConnectionChanged(status == DataConnectionStatus.disconnected
-            ? ConnectionFailure()
-            : ConnectionSuccess()));
-      });
-    }
-    if (event is ConnectionChanged) yield event.connection;
+  Stream<NetworkState> _onConnected(
+    NetworkEvent event,
+    Emitter<NetworkState> emit,
+  ) async* {
+    _subscription = InternetConnectionChecker().onStatusChange.listen((status) {
+      status == InternetConnectionStatus.disconnected
+          ? emit(ConnectionFailure())
+          : emit(ConnectionSuccess());
+    });
   }
 
   @override
   Future<void> close() {
-    _subscription.cancel();
+    _subscription!.cancel();
     return super.close();
   }
 }

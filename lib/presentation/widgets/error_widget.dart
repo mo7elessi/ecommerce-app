@@ -3,27 +3,20 @@ import 'package:bloc_state_managment/core/themes/app_theme.dart';
 
 class ErrorMessageWidget extends StatelessWidget {
   final String error;
+  final IconData? icon;
 
   const ErrorMessageWidget({
     Key? key,
     required this.error,
+     this.icon,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SnackBar(
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Icon(Icons.wifi_off_sharp,color: Colors.red),
-          const SizedBox(height: Sizes.verticalPadding),
-          Text(error),
-        ],
-      ),
-      backgroundColor: MyColors.backgroundColor,
-      padding: const EdgeInsets.all(Sizes.widgetSidePadding),
+    return Container(
+      color: MyColors.backgroundColor,
+      padding: const EdgeInsets.all(MySizes.widgetSidePadding),
+      child: Text(error),
     );
   }
-
 }

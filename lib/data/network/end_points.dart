@@ -15,11 +15,13 @@ class Endpoints {
 
   static const String products = 'products';
 
+  static const String banners = 'banners';
+
   static const String search = 'products/search';
 
   static const String favorite = 'favorites';
 
-  static const String cart = 'carts';
+  static const String carts = 'carts';
 
   static const String orders = 'orders';
 
