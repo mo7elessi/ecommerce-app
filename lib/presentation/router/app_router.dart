@@ -4,6 +4,7 @@ import 'package:bloc_state_managment/presentation/screens/user/screens/login_scr
 import 'package:bloc_state_managment/presentation/screens/user/screens/register_screen.dart';
 import 'package:bloc_state_managment/presentation/screens/user/screens/reset_password.dart';
 import 'package:bloc_state_managment/presentation/screens/user/screens/verify_code_screen.dart';
+import 'package:bloc_state_managment/presentation/screens/user/screens/verify_email_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/categories/categories_screen.dart';
@@ -22,7 +23,7 @@ class Routers {
       case Routes.verifyCodeScreen:
         return MaterialPageRoute(builder: (_) => const VerifyCodeScreen());
       case Routes.verifyEmailScreen:
-        return MaterialPageRoute(builder: (_) => const VerifyCodeScreen());
+        return MaterialPageRoute(builder: (_) => const VerifyEmailScreen());
       case Routes.resetPasswordScreen:
         return MaterialPageRoute(builder: (_) => const ResetPasswordScreen());
       default:

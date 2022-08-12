@@ -3,10 +3,10 @@
 import 'package:bloc_state_managment/core/routes/routes.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/themes/app_theme.dart';
-import '../../../widgets/text_field_widget.dart';
+import '../../core/themes/app_theme.dart';
+import 'text_field_widget.dart';
 
-enum Forms { username, email, phone, password, code, promoCode }
+enum Forms { username, email, phone, password, code, promoCode, search }
 
 class FormWidget extends StatelessWidget {
   TextEditingController? usernameController;
@@ -15,6 +15,7 @@ class FormWidget extends StatelessWidget {
   TextEditingController? phoneController;
   TextEditingController? codeController;
   TextEditingController? promoCodeController;
+  TextEditingController? searchController;
   final String route;
 
   FormWidget({
@@ -25,6 +26,7 @@ class FormWidget extends StatelessWidget {
     this.usernameController,
     this.codeController,
     this.promoCodeController,
+    this.searchController,
     required this.route,
   }) : super(key: key);
 
@@ -43,8 +45,7 @@ class FormWidget extends StatelessWidget {
         const SizedBox(height: MySizes.verticalPadding),
         textFields(Forms.password),
       ];
-    }
-    if (route == Routes.registerScreen) {
+    } else if (route == Routes.registerScreen) {
       return [
         textFields(Forms.username),
         const SizedBox(height: MySizes.verticalPadding),
@@ -54,18 +55,19 @@ class FormWidget extends StatelessWidget {
         const SizedBox(height: MySizes.verticalPadding),
         textFields(Forms.password),
       ];
-    }
-    if (route == Routes.verifyEmailScreen) {
+    } else if (route == Routes.verifyEmailScreen) {
       return [
         textFields(Forms.email),
       ];
-    }
-    if (route == Routes.verifyCodeScreen) {
+    } else if (route == Routes.verifyCodeScreen) {
       return [
         textFields(Forms.code),
       ];
-    }
-    if (route == Routes.resetPasswordScreen) {
+    } else if (route == Routes.resetPasswordScreen) {
+      return [
+        textFields(Forms.password),
+      ];
+    } else if (route == Routes.resetPasswordScreen) {
       return [
         textFields(Forms.password),
       ];
@@ -79,11 +81,10 @@ class FormWidget extends StatelessWidget {
     switch (e) {
       case Forms.username:
         return TextFieldWidget(
-          controller: passwordController!,
-          hint: 'Enter password',
+          controller: usernameController!,
+          hint: 'Enter name',
           keyboard: TextInputType.text,
-          prefixIcon: Icons.lock,
-          suffixIcon: Icons.remove_red_eye,
+          prefixIcon: Icons.person,
           validator: () {},
         );
       case Forms.email:

@@ -18,68 +18,68 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   Future<void> _onRegister(
-    RegisterEvent event,
-    Emitter<UserState> emit,
-  ) async {
+      RegisterEvent event,
+      Emitter<UserState> emit,
+      ) async {
     emit(UserLoadingState());
     try {
       UserData userData = event.userData;
       var data = await userRepository.createUser(userModel: userData);
-      emit(UserSuccessState(data.message!, data.status!));
+      emit(UserSuccessState(data.message!,data.status!));
     } catch (e) {
       emit(UserErrorState("$e"));
     }
   }
 
   Future<void> _onLogin(
-    LoginEvent event,
-    Emitter<UserState> emit,
-  ) async {
+      LoginEvent event,
+      Emitter<UserState> emit,
+      ) async {
     emit(UserLoadingState());
     try {
       var data = await userRepository.login(
         email: event.email,
         password: event.password,
       );
-      emit(UserSuccessState(data.message!, data.status!));
+      emit(UserSuccessState(data.message!,data.status!));
     } catch (e) {
       emit(UserErrorState("$e"));
     }
   }
 
   Future<void> _onVerifyEmail(
-    VerifyEmailEvent event,
-    Emitter<UserState> emit,
-  ) async {
+      VerifyEmailEvent event,
+      Emitter<UserState> emit,
+      ) async {
     emit(UserLoadingState());
     try {
       var data = await userRepository.verifyEmail(email: event.email);
-      emit(UserSuccessState(data.message!, data.status!));
+      emit(UserSuccessState(data.message!,data.status!));
     } catch (e) {
       emit(UserErrorState(e.toString()));
     }
   }
 
   Future<void> _onVerifyCode(
-    VerifyCodeEvent event,
-    Emitter<UserState> emit,
-  ) async {
+      VerifyCodeEvent event,
+      Emitter<UserState> emit,
+      ) async {
     emit(UserLoadingState());
     try {
       var data = await userRepository.verifyCode(
         email: event.email,
         code: event.code,
       );
-      emit(UserSuccessState(data.message!, data.status!));
+      emit(UserSuccessState(data.message!,data.status!));
     } catch (e) {
       emit(UserErrorState(e.toString()));
     }
   }
 
   Future<void> _onResetPassword(
-    ResetPasswordEvent event,
-    Emitter<UserState> emit,
-  ) async {
+      ResetPasswordEvent event,
+      Emitter<UserState> emit,
+      ) async {
     emit(UserLoadingState());
     try {
       var data = await userRepository.resetPassword(
@@ -87,7 +87,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         code: event.code,
         password: event.password,
       );
-      emit(UserSuccessState(data.message!, data.status!));
+      emit(UserSuccessState(data.message!,data.status!));
     } catch (e) {
       emit(UserErrorState(e.toString()));
     }

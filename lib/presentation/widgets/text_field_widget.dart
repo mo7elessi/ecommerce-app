@@ -44,13 +44,15 @@ class TextFieldWidget extends StatelessWidget {
         border: const OutlineInputBorder(),
         suffixIcon: suffixIcon != null
             ? IconButton(
-                icon: Icon(suffixIcon), onPressed: () => suffixIconPressed!())
+                icon: Icon(suffixIcon),
+                onPressed: () => suffixIconPressed!(),
+              )
             : null,
       ),
       onTap: () => onTap,
       validator: (value) => validator(value),
       onFieldSubmitted: (value) => onSubmit ?? (value),
-      onChanged: (value) => onChanged ?? (value),
+      onChanged: (value) => onChanged!(value),
     );
   }
 }

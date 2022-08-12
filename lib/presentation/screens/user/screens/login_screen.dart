@@ -2,7 +2,7 @@ import 'package:bloc_state_managment/core/routes/routes.dart';
 import 'package:bloc_state_managment/core/themes/app_theme.dart';
 import 'package:bloc_state_managment/presentation/screens/user/screens/wrapper.dart';
 import 'package:bloc_state_managment/presentation/screens/user/widgets/action_builder.dart';
-import 'package:bloc_state_managment/presentation/screens/user/widgets/form_widget.dart';
+import 'package:bloc_state_managment/presentation/widgets/form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,36 +19,51 @@ class LoginScreen extends StatelessWidget {
 
     return WrapperWidget(
       title: "login",
-      body: Form(
-        key: formKey,
-        child: Column(
-          children: [
-            FormWidget(
+      body: Column(
+        children: [
+          Form(
+            key: formKey,
+            child: FormWidget(
               route: Routes.loginScreen,
               emailController: emailController,
               passwordController: passwordController,
             ),
-            const SizedBox(height: MySizes.verticalPadding),
-            ActionBuilderWidget(
-              primaryButtonFunction: () {
-                context.read<UserBloc>().add(
-                      LoginEvent(
-                        password: passwordController.text,
-                        email: emailController.text,
-                      ),
-                    );
+          ),
+          const SizedBox(height: MySizes.verticalPadding),
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  Routes.verifyEmailScreen,
+                  (Route<dynamic> route) => false,
+                );
               },
-              primaryButtonText: "login",
-              secondaryButtonFunction: () {
-                Navigator.pushNamed(context, Routes.registerScreen);
-              },
-              secondaryButtonText: "register",
-              navigatorFunction: () {
-                Navigator.pushNamed(context, Routes.loginScreen);
-              },
-            ),
-          ],
-        ),
+              child: const Align(
+                alignment: Alignment.bottomRight,
+                child: Text("Forget password?"),
+              )),
+          const SizedBox(height: MySizes.verticalPadding),
+          ActionBuilderWidget(
+            primaryButtonFunction: () {
+              String password = passwordController.text;
+              String email = emailController.text;
+              context.read<UserBloc>().add(
+                    LoginEvent(
+                      password: password,
+                      email: email,
+                    ),
+                  );
+            },
+            primaryButtonText: 'login',
+            secondaryButtonFunction: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                Routes.registerScreen,
+                (Route<dynamic> route) => false,
+              );
+            },
+            secondaryButtonText: 'register',
+            navigatorFunction: () {},
+          ),
+        ],
       ),
     );
   }

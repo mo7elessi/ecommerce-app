@@ -12,6 +12,8 @@ class MySizes {
   static const double radius = 0.0;
   static const double borderWith = .3;
   static const double buttonHeight = 55.0;
+  static const double productImageHeight = 100.0;
+  static const double productImageWidth = 100.0;
 }
 
 class MyColors {
@@ -48,12 +50,13 @@ class MyTheme {
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
-        fillColor: MyColors.backgroundColor,
-        filled: true,
-        prefixStyle: const TextStyle(color: MyColors.primaryColor),
-        enabledBorder: outlineInputBorder,
-        errorBorder: outlineInputBorder,
-        focusedErrorBorder: outlineInputBorder,
-        focusedBorder: outlineInputBorder),
+      fillColor: MyColors.backgroundColor,
+      filled: true,
+      prefixStyle: const TextStyle(color: MyColors.primaryColor),
+      enabledBorder: outlineInputBorder,
+      errorBorder: outlineInputBorder,
+      focusedErrorBorder: outlineInputBorder,
+      focusedBorder: outlineInputBorder,
+    ),
   );
 }

@@ -8,14 +8,13 @@ class ProductInitial extends ProductState {}
 class SearchLoadingState extends ProductState {}
 
 class SearchLoadedState extends ProductState {
-  final ProductResponse productResponse;
+  final List<ProductModel> products;
 
-  SearchLoadedState(this.productResponse);
+  SearchLoadedState({required this.products});
 }
 
 class SearchErrorState extends ProductState {
   final String error;
 
   SearchErrorState(this.error);
-
 }

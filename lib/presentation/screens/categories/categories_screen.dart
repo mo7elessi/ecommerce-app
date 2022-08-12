@@ -13,40 +13,30 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Categories"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          left: MySizes.widgetSidePadding,
-          right: MySizes.widgetSidePadding,
-        ),
-        child: BlocBuilder<CategoryBloc, CategoryState>(
-          builder: (context, state) {
-            return ConditionalBuilder(
-              condition: state is! CategoriesLoadingState,
-              builder: (context) {
-                return state is CategoriesLoadedState
-                    ? ListView.separated(
-                        itemBuilder: (context, index) => CategoryItem(
-                          category: state.category,
-                          index: index,
-                        ),
-                        itemCount: state.category.data!.data!.length,
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const SizedBox(height: MySizes.verticalPadding),
-                      )
-                    : ErrorMessageWidget(
-                        icon: Icons.error,
-                        error: state is CategoriesErrorState ? state.error : "",
-                      );
-              },
-              fallback: (context) => const LoadingWidget(),
-            );
+    return BlocBuilder<CategoryBloc, CategoryState>(
+      builder: (context, state) {
+        return ConditionalBuilder(
+          condition: state is! CategoriesLoadingState,
+          builder: (context) {
+            if (state is CategoriesLoadedState) {
+              return ListView.separated(
+                itemBuilder: (context, index) {
+                  return CategoryItem(
+                    category: state.category,
+                    index: index,
+                  );
+                },
+                itemCount: state.category.data!.data!.length,
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(height: MySizes.verticalPadding);
+                },
+              );
+            }
+            return const LoadingWidget();
           },
-        ),
-      ),
+          fallback: (context) => const LoadingWidget(),
+        );
+      },
     );
   }
 }
