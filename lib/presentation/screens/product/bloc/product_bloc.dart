@@ -1,12 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:bloc_state_managment/core/error/failure.dart';
 import 'package:bloc_state_managment/data/model/product_model.dart';
 import 'package:bloc_state_managment/data/repositories/product_repository.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'product_event.dart';
@@ -31,14 +28,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     SearchEvent event,
     Emitter<ProductState> emit,
   ) async {
-    debugPrint("search loading");
     emit(SearchLoadingState());
     try {
       var result = await productRepository!.search(text: event.text);
-      debugPrint("search result: ${result.data!.data}");
       emit(SearchLoadedState(products: result.data!.data!));
     } catch (e) {
-      debugPrint("search error: $e");
       emit(SearchErrorState(e.toString()));
     }
   }

@@ -46,14 +46,11 @@ class ActionBuilderWidget extends StatelessWidget {
           builder: (context) {
             return Column(
               children: [
-                if (state is UserErrorState)
-                  ErrorMessageWidget(error: state.message),
-                const SizedBox(height: MySizes.verticalPadding),
                 PrimaryButtonWidget(
                   text: primaryButtonText,
                   function: () => primaryButtonFunction(),
                 ),
-                const SizedBox(height: MySizes.verticalPadding),
+                const SizedBox(height: MySizes.verticalSpace),
                 SecondaryButtonWidget(
                   text: secondaryButtonText,
                   function: () => secondaryButtonFunction(),

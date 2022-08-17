@@ -18,8 +18,9 @@ class SecondaryButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: width,
+      color: MyColors.scaffoldBackgroundColor,
       height: MySizes.buttonHeight,
       child: OutlinedButton(
         style: ButtonStyle(
@@ -28,7 +29,13 @@ class SecondaryButtonWidget extends StatelessWidget {
           ),
         ),
         onPressed: () => function(),
-        child: Text(text.toUpperCase()),
+        child: Text(
+          text.toUpperCase(),
+          style: Theme.of(context).textTheme.button!.copyWith(
+                fontWeight: FontWeight.bold,
+                color: MyColors.primaryColor,
+              ),
+        ),
       ),
     );
   }

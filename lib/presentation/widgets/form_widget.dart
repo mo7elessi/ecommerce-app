@@ -42,17 +42,17 @@ class FormWidget extends StatelessWidget {
     if (route == Routes.loginScreen) {
       return [
         textFields(Forms.email),
-        const SizedBox(height: MySizes.verticalPadding),
+        const SizedBox(height: MySizes.verticalSpace),
         textFields(Forms.password),
       ];
     } else if (route == Routes.registerScreen) {
       return [
         textFields(Forms.username),
-        const SizedBox(height: MySizes.verticalPadding),
+        const SizedBox(height: MySizes.verticalSpace),
         textFields(Forms.email),
-        const SizedBox(height: MySizes.verticalPadding),
+        const SizedBox(height: MySizes.verticalSpace),
         textFields(Forms.phone),
-        const SizedBox(height: MySizes.verticalPadding),
+        const SizedBox(height: MySizes.verticalSpace),
         textFields(Forms.password),
       ];
     } else if (route == Routes.verifyEmailScreen) {

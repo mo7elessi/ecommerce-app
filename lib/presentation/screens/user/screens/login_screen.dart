@@ -3,6 +3,7 @@ import 'package:bloc_state_managment/core/themes/app_theme.dart';
 import 'package:bloc_state_managment/presentation/screens/user/screens/wrapper.dart';
 import 'package:bloc_state_managment/presentation/screens/user/widgets/action_builder.dart';
 import 'package:bloc_state_managment/presentation/widgets/form_widget.dart';
+import 'package:bloc_state_managment/presentation/widgets/logo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,7 +30,7 @@ class LoginScreen extends StatelessWidget {
               passwordController: passwordController,
             ),
           ),
-          const SizedBox(height: MySizes.verticalPadding),
+          const SizedBox(height: MySizes.verticalSpace),
           TextButton(
               onPressed: () {
                 Navigator.of(context).pushNamedAndRemoveUntil(
@@ -39,19 +40,21 @@ class LoginScreen extends StatelessWidget {
               },
               child: const Align(
                 alignment: Alignment.bottomRight,
-                child: Text("Forget password?"),
+                child: Text(
+                  "Forget Password?",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               )),
-          const SizedBox(height: MySizes.verticalPadding),
+          const SizedBox(height: MySizes.verticalSpace),
           ActionBuilderWidget(
             primaryButtonFunction: () {
               String password = passwordController.text;
               String email = emailController.text;
-              context.read<UserBloc>().add(
-                    LoginEvent(
-                      password: password,
-                      email: email,
-                    ),
-                  );
+              if (password.isNotEmpty && email.isNotEmpty) {
+                context.read<UserBloc>().add(
+                      LoginEvent(password: password, email: email),
+                    );
+              }
             },
             primaryButtonText: 'login',
             secondaryButtonFunction: () {
@@ -61,7 +64,12 @@ class LoginScreen extends StatelessWidget {
               );
             },
             secondaryButtonText: 'register',
-            navigatorFunction: () {},
+            navigatorFunction: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                Routes.mainLayoutScreen,
+                    (Route<dynamic> route) => false,
+              );
+            },
           ),
         ],
       ),

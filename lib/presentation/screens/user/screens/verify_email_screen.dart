@@ -21,7 +21,10 @@ class VerifyEmailScreen extends StatelessWidget {
       body: Form(
         key: formKey,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Text("Enter your email to send code to verify email."),
+            const SizedBox(height: MySizes.verticalSpace),
             TextFieldWidget(
               controller: emailController,
               hint: 'Enter email',
@@ -29,14 +32,14 @@ class VerifyEmailScreen extends StatelessWidget {
               prefixIcon: Icons.email,
               validator: () {},
             ),
-            const SizedBox(height: MySizes.verticalPadding),
+            const SizedBox(height: MySizes.verticalSpace),
             ActionBuilderWidget(
               primaryButtonFunction: () {
-                context.read<UserBloc>().add(
-                      VerifyEmailEvent(
-                        email: emailController.text,
-                      ),
-                    );
+                if (emailController.text.isNotEmpty) {
+                  context.read<UserBloc>().add(
+                        VerifyEmailEvent(email: emailController.text),
+                      );
+                }
               },
               primaryButtonText: 'send code',
               secondaryButtonFunction: () {

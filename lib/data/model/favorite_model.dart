@@ -51,13 +51,13 @@ class Page {
 
 class Data {
   int? id;
-  ProductModel? product;
+  Product? product;
 
   Data({this.id, this.product});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     product =
-        json['product'] != null ? ProductModel.fromJson(json['product']) : null;
+        json['product'] != null ? Product.fromJson(json['product']) : null;
   }
 }

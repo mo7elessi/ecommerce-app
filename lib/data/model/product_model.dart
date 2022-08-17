@@ -1,9 +1,9 @@
-class ProductResponse {
+class ProductModel {
   bool? status;
   String? message;
   Page? data;
 
-  ProductResponse.fromJson(Map<String, dynamic> json) {
+  ProductModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     data = json['data'] != null ? Page.fromJson(json['data']) : null;
@@ -12,7 +12,7 @@ class ProductResponse {
 
 class Page {
   int? currentPage;
-  List<ProductModel>? data;
+  List<Product>? data;
   String? firstPageUrl;
   int? from;
   int? lastPage;
@@ -27,9 +27,9 @@ class Page {
   Page.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
-      data = <ProductModel>[];
+      data = <Product>[];
       json['data'].forEach((v) {
-        data!.add(ProductModel.fromJson(v));
+        data!.add(Product.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
@@ -45,7 +45,7 @@ class Page {
   }
 }
 
-class ProductModel {
+class Product {
   dynamic id;
   dynamic price;
   dynamic oldPrice;
@@ -57,7 +57,7 @@ class ProductModel {
   bool? inFavorites;
   bool? inCart;
 
-  ProductModel.fromJson(Map<String, dynamic> json) {
+  Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     price = json['price'];
     oldPrice = json['old_price'];

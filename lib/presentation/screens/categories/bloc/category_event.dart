@@ -5,3 +5,9 @@ abstract class CategoryEvent {
 }
 
 class FetchCategoriesEvent extends CategoryEvent {}
+
+class FetchProductsByCategoryEvent extends CategoryEvent {
+  final int categoryId;
+
+  FetchProductsByCategoryEvent({required this.categoryId});
+}

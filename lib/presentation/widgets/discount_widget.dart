@@ -7,16 +7,26 @@ class DiscountWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(MySizes.radius),
+    return Align(
+      alignment: Alignment.topRight,
+      child: Container(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(MySizes.radius),
+          ),
+          color: MyColors.primaryColor,
         ),
-        color: MyColors.primaryColor,
-      ),
-      child: const Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Text('DISCOUNT'),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            'DISCOUNT',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
       ),
     );
   }

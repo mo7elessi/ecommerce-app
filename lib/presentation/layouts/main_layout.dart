@@ -16,7 +16,10 @@ class MainLayout extends StatelessWidget {
         MainLayoutBloc bloc = BlocProvider.of(context);
         return Scaffold(
           appBar: AppBar(
-            title: Text(titles[bloc.index]),
+            title: Text(
+              titles[bloc.index],
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
           body: screens[bloc.index],
           bottomNavigationBar: BottomNavigationBar(
@@ -40,11 +43,11 @@ class MainLayout extends StatelessWidget {
     BottomNavigationBarItem(label: "Home", icon: Icon(Icons.home)),
     BottomNavigationBarItem(label: "Categories", icon: Icon(Icons.category)),
     BottomNavigationBarItem(label: "Cart", icon: Icon(Icons.shopping_cart)),
-    BottomNavigationBarItem(label: "Favorite", icon: Icon(Icons.favorite)),
+    BottomNavigationBarItem(label: "Favorite", icon: Icon(Icons.bookmark)),
     BottomNavigationBarItem(label: "Profile", icon: Icon(Icons.person))
   ];
   final List<String> titles = [
-    "Home",
+    "Discover",
     "Categories",
     "Cart",
     "Favorite",

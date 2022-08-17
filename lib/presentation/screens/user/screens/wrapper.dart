@@ -1,6 +1,8 @@
 import 'package:bloc_state_managment/core/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 
+import '../../../widgets/logo.dart';
+
 class WrapperWidget extends StatelessWidget {
   final String title;
   final Widget body;
@@ -13,13 +15,28 @@ class WrapperWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(MySizes.widgetSidePadding),
-        child: body,
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(MySizes.widgetSideSpace),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const LogoWidget(),
+                const SizedBox(height: MySizes.verticalSpace * 3),
+                Text(
+                  title.toUpperCase(),
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
+                ),
+                const SizedBox(height: MySizes.verticalSpace),
+                body,
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -1,4 +1,6 @@
 import 'package:bloc_state_managment/core/routes/routes.dart';
+import 'package:bloc_state_managment/presentation/layouts/main_layout.dart';
+import 'package:bloc_state_managment/presentation/screens/categories/products_by_category_screen.dart';
 import 'package:bloc_state_managment/presentation/screens/home/home_screen.dart';
 import 'package:bloc_state_managment/presentation/screens/user/screens/login_screen.dart';
 import 'package:bloc_state_managment/presentation/screens/user/screens/register_screen.dart';
@@ -26,6 +28,12 @@ class Routers {
         return MaterialPageRoute(builder: (_) => const VerifyEmailScreen());
       case Routes.resetPasswordScreen:
         return MaterialPageRoute(builder: (_) => const ResetPasswordScreen());
+      case Routes.productsByCategoryScreen:
+        return MaterialPageRoute(
+          builder: (_) => const ProductsByCategoryScreen(),
+        );
+      case Routes.mainLayoutScreen:
+        return MaterialPageRoute(builder: (_) => MainLayout());
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(

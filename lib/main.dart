@@ -8,6 +8,8 @@ import 'package:bloc_state_managment/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'presentation/screens/user/screens/login_screen.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
         title: 'Bloc Demo',
         onGenerateRoute: Routers.generateRoute,
         theme: MyTheme.theme,
-        home:  MainLayout(),
+        home:  const LoginScreen(),
       ),
     );
   }

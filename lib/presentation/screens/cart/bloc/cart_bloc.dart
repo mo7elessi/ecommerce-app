@@ -26,7 +26,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(FetchCartLoadingState());
     try {
       var data = await cartRepository.getCart();
-      emit(FetchCartLoadedState(data));
+      emit(FetchCartLoadedState(data.data!));
     } catch (e) {
       emit(FetchCartErrorState(e.toString()));
     }
@@ -39,6 +39,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     try {
       var data = await cartRepository.addOrRemove(productId: event.productId);
       emit(AddOrRemoveProductFromCartState(data));
+      add(FetchCartEvent());
     } catch (e) {
       debugPrint("$e");
     }

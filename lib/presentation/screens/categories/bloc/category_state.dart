@@ -19,3 +19,17 @@ class CategoriesErrorState extends CategoryState {
 
   CategoriesErrorState(this.error);
 }
+
+class ProductsByCategoryLoadingState extends CategoryState {}
+
+class ProductsByCategoryLoadedState extends CategoryState {
+  final List<Product> product;
+
+  ProductsByCategoryLoadedState({required this.product});
+}
+
+class ProductsByCategoryErrorState extends CategoryState {
+  final String error;
+
+  ProductsByCategoryErrorState(this.error);
+}

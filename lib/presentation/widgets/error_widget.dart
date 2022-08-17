@@ -15,7 +15,7 @@ class ErrorMessageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: MyColors.backgroundColor,
-      padding: const EdgeInsets.all(MySizes.widgetSidePadding),
+      padding: const EdgeInsets.all(MySizes.widgetSideSpace),
       child: Text(error),
     );
   }

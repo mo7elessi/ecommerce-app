@@ -17,7 +17,7 @@ class HomeModel {
 
 class Data {
   List<BannerModel>? banners;
-  List<ProductModel>? products;
+  List<Product>? products;
   String? ad;
 
   Data({this.banners, this.products, this.ad});
@@ -30,9 +30,9 @@ class Data {
       });
     }
     if (json['products'] != null) {
-      products = <ProductModel>[];
+      products = <Product>[];
       json['products'].forEach((v) {
-        products!.add(ProductModel.fromJson(v));
+        products!.add(Product.fromJson(v));
       });
     }
     ad = json['ad'];

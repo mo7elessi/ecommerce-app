@@ -3,25 +3,25 @@ import 'package:bloc_state_managment/data/model/product_model.dart';
 class CartModel {
   bool? status;
   String? message;
-  Data? data;
+  CartData? data;
 
   CartModel({this.status, this.message, this.data});
 
   CartModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ?  Data.fromJson(json['data']) : null;
+    data = json['data'] != null ?  CartData.fromJson(json['data']) : null;
   }
 }
 
-class Data {
+class CartData {
   List<CartItems>? cartItems;
   dynamic subTotal;
   dynamic total;
 
-  Data({this.cartItems, this.subTotal, this.total});
+  CartData({this.cartItems, this.subTotal, this.total});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  CartData.fromJson(Map<String, dynamic> json) {
     if (json['cart_items'] != null) {
       cartItems = <CartItems>[];
       json['cart_items'].forEach((v) {
@@ -36,7 +36,7 @@ class Data {
 class CartItems {
   dynamic id;
   dynamic quantity;
-  ProductModel? product;
+  Product? product;
 
   CartItems({this.id, this.quantity, this.product});
 
@@ -44,6 +44,6 @@ class CartItems {
     id = json['id'];
     quantity = json['quantity'];
     product =
-        json['product'] != null ? ProductModel.fromJson(json['product']) : null;
+        json['product'] != null ? Product.fromJson(json['product']) : null;
   }
 }

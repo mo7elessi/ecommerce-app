@@ -14,44 +14,33 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.only(
-            left: MySizes.widgetSidePadding,
-            right: MySizes.widgetSidePadding,
-          ),
-          child: BlocBuilder<CartBloc, CartState>(
-            builder: (context, state) => ConditionalBuilder(
-              condition: state is! FetchCartLoadingState,
-              builder: (context) {
-                if (state is FetchCartLoadedState) {
-                  return state.cartModel.data!.cartItems!.isNotEmpty
-                      ? ListView.separated(
+        body: BlocBuilder<CartBloc, CartState>(
+          builder: (context, state) => ConditionalBuilder(
+            condition: state is! FetchCartLoadingState,
+            builder: (context) {
+              if (state is FetchCartLoadedState) {
+                return state.cart.cartItems!.isNotEmpty
+                    ? Container(
+                        margin: const EdgeInsets.all(MySizes.widgetSideSpace),
+                        child: ListView.separated(
                           itemBuilder: (context, index) => CartItem(
                             state: state,
                             index: index,
+                            cartBloc: context.read<CartBloc>(),
                           ),
-                          separatorBuilder: (BuildContext context, int index) =>
-                              const SizedBox(height: MySizes.verticalPadding),
-                          itemCount: state.cartModel.data!.cartItems!.length,
-                        )
-                      : const ErrorMessageWidget(
-                          error: "cart is empty",
-                          icon: Icons.remove_shopping_cart,
-                        );
-                }else if (state is FetchCartErrorState) {
-                  return ErrorMessageWidget(
-                    error: state.error,
-                    icon: Icons.error,
-                  );
-                } else {
-                  return const ErrorMessageWidget(
-                    error: 'Please check internet connection',
-                    icon: Icons.wifi_off_sharp,
-                  );
-                }
-              },
-              fallback: (context) => const LoadingWidget(),
-            ),
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const SizedBox(
+                              height: MySizes.verticalSpace,
+                            );
+                          },
+                          itemCount: state.cart.cartItems!.length,
+                        ),
+                      )
+                    : const ErrorMessageWidget(error: "cart is empty");
+              }
+              return const LoadingWidget();
+            },
+            fallback: (context) => const LoadingWidget(),
           ),
         ),
       ),

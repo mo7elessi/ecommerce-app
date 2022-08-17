@@ -17,6 +17,7 @@ class PrimaryButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: width,
       height: MySizes.buttonHeight,
@@ -26,7 +27,13 @@ class PrimaryButtonWidget extends StatelessWidget {
       ),
       child: MaterialButton(
         onPressed: () => function(),
-        child: Text(text.toUpperCase()),
+        child: Text(
+          text.toUpperCase(),
+          style: Theme.of(context)
+              .textTheme
+              .button!
+              .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

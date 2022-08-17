@@ -1,11 +1,13 @@
+import 'package:bloc_state_managment/core/util/my_box_decoration.dart';
 import 'package:bloc_state_managment/data/model/product_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/themes/app_theme.dart';
+import '../screens/product/product_details.dart';
 import 'discount_widget.dart';
 
 class ProductItemWidget extends StatelessWidget {
-  final ProductModel product;
+  final Product product;
 
   const ProductItemWidget({
     Key? key,
@@ -15,53 +17,75 @@ class ProductItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Container(
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(MySizes.radius)),
-            color: MyColors.backgroundColor,
-            border: Border.fromBorderSide(BorderSide(
-              width: MySizes.borderWith,
-              color: MyColors.borderColor,
-            ))),
-        padding: const EdgeInsets.all(MySizes.widgetSidePadding / 2),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              alignment: Alignment.topRight,
+      child: Stack(
+        children: [
+          Container(
+            decoration: myBoxDecoration,
+            padding: const EdgeInsets.all(MySizes.widgetSideSpace / 1.25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image(
-                  image: NetworkImage(product.image!),
-                  width: MySizes.productImageWidth,
-                  height: MySizes.productImageHeight,
-                ),
-                if (product.discount > 0) const DiscountWidget(),
-              ],
-            ),
-            const SizedBox(height: MySizes.verticalPadding),
-            Text(product.name!),
-            Row(
-              children: [
-                Text('${product.price.round()} EGP'),
-                const SizedBox(width: MySizes.horizontalPadding),
-                if (product.discount > 0)
-                  Text(
-                    '${product.oldPrice.round()} EGP',
-                    style: const TextStyle(
-                      decoration: TextDecoration.lineThrough,
-                    ),
+                Center(
+                  child: Image(
+                    image: NetworkImage(product.image!),
+                    //    width: MySizes.productImageWidth,
+                    height: MySizes.productImageHeight,
                   ),
+                ),
+                const SizedBox(height: MySizes.verticalSpace),
+                Text(
+                  product.name!,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(fontSize: 12),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
                 const Spacer(),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.favorite_border),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          '${product.price.round()} EGP',
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: MyColors.primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                        const Spacer(),
+                        InkWell(
+                          onTap: () {},
+                          child: const Icon(Icons.bookmark_border),
+                        ),
+                      ],
+                    ),
+                    if (product.discount > 0)
+                      Text(
+                        '${product.oldPrice.round()} EGP',
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              decoration: TextDecoration.lineThrough,
+                              fontSize: 10,
+                            ),
+                      ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+          if (product.discount > 0) const DiscountWidget(),
+        ],
       ),
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return ProductDetailsScreen(product: product);
+          },
+        ));
+      },
     );
   }
 }
