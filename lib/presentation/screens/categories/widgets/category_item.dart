@@ -3,16 +3,16 @@ import 'package:bloc_state_managment/core/util/my_box_decoration.dart';
 import 'package:bloc_state_managment/data/model/category_model.dart';
 import 'package:flutter/material.dart';
 
-class CategoryItem extends StatelessWidget {
-  final CategoryModel category;
-  final int index;
-  final Function onTapProduct;
+import '../../../../core/routes/routes.dart';
 
-  const CategoryItem({
+class CategoryItemWidget extends StatelessWidget {
+  final List<CategoryModel> category;
+  final int index;
+
+  const CategoryItemWidget({
     Key? key,
     required this.category,
     required this.index,
-    required this.onTapProduct,
   }) : super(key: key);
 
   @override
@@ -27,19 +27,25 @@ class CategoryItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              category.data!.data![index].name!,
+              category[index].name ?? "No title",
               style: Theme.of(context).textTheme.bodyText1!.copyWith(),
             ),
             const Spacer(),
             Image(
-              image: NetworkImage(category.data!.data![index].image!),
-              width: MySizes.productImageWidth/2,
-              height: MySizes.productImageHeight/2,
+              image: NetworkImage(category[index].image ?? ""),
+              width: MySizes.productImageWidth / 2,
+              height: MySizes.productImageHeight / 2,
             ),
           ],
         ),
       ),
-      onTap: () =>onTapProduct(),
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          Routes.productsByCategoryScreen,
+          arguments: category[index],
+        );
+      },
     );
   }
 }

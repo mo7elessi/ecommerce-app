@@ -10,11 +10,11 @@ class FetchHomeDataLoadingState extends HomeInitial {}
 class FetchHomeDataLoadedState extends HomeInitial {
   final HomeModel homeModel;
 
-  FetchHomeDataLoadedState(this.homeModel);
+  FetchHomeDataLoadedState({required this.homeModel});
 }
 
 class FetchHomeDataErrorState extends HomeInitial {
   final String error;
-  FetchHomeDataErrorState(this.error);
+  FetchHomeDataErrorState({required this.error});
 }
 

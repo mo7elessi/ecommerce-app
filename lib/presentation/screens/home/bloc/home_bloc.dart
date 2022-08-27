@@ -13,7 +13,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final HomeRepository homeRepository;
 
-  HomeBloc(this.homeRepository) : super(HomeInitial()) {
+  HomeBloc({required this.homeRepository}) : super(HomeInitial()) {
     on<FetchHomeDataEvent>(_onFetchHomeData);
   }
 
@@ -22,11 +22,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     emit(FetchHomeDataLoadingState());
-    try {
-      final data = await homeRepository.getHomeData();
-      emit(FetchHomeDataLoadedState(data));
-    } catch (e) {
-      emit(FetchHomeDataErrorState(e.toString()));
-    }
+    final failureOrData = await homeRepository.getHomeData();
+    failureOrData.fold(
+      (failure) => emit(FetchHomeDataErrorState(error:"${failure.runtimeType}")),
+      (data) =>  emit(FetchHomeDataLoadedState(homeModel: data)),
+    );
   }
 }

@@ -41,7 +41,7 @@ class RegisterScreen extends StatelessWidget {
               String email = emailController.text;
               String password = passwordController.text;
               String phone = phoneController.text;
-              UserData user = UserData(username, email, password, phone);
+              UserModel user = UserModel(username, email, password, phone);
               if (email.isNotEmpty &&
                   password.isNotEmpty &&
                   phone.isNotEmpty &&

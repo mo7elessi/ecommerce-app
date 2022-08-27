@@ -1,25 +1,25 @@
 import 'package:bloc_state_managment/core/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/routes/routes.dart';
 import '../../../../data/model/cart_model.dart';
 import '../../../widgets/discount_widget.dart';
 import '../bloc/cart_bloc.dart';
 
 class CartItem extends StatelessWidget {
   final FetchCartLoadedState state;
-  final CartBloc cartBloc;
-  final int index;
+  final  int index;
 
   const CartItem({
     Key? key,
     required this.state,
     required this.index,
-    required this.cartBloc,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     CartItems cartItem = state.cart.cartItems![index];
+
     dynamic price = cartItem.product!.price;
     dynamic quantity = cartItem.quantity;
     String? image = cartItem.product!.image;
@@ -47,8 +47,8 @@ class CartItem extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Image(
                     image: NetworkImage("$image"),
-                    width: 80,
-                    height: 80,
+                    width: MySizes.productImageWidth / 1.2,
+                    height: MySizes.productImageHeight / 1.2,
                   ),
                 ),
                 const SizedBox(width: MySizes.horizontalSpace),
@@ -105,11 +105,16 @@ class CartItem extends StatelessWidget {
               ],
             ),
           ),
-          if (state.cart.cartItems![index].product!.discount > 0)
-            const DiscountWidget(),
+          if (cartItem.product!.discount > 0) const DiscountWidget(),
         ],
       ),
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          Routes.productDetailsScreen,
+          arguments: cartItem.product!,
+        );
+      },
     );
   }
 }

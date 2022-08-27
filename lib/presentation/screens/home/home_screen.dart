@@ -5,6 +5,7 @@ import 'package:bloc_state_managment/presentation/widgets/text_field_widget.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../widgets/error_widget.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/product_item_widget.dart';
 import '../product/bloc/product_bloc.dart';
@@ -44,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   if (state is SearchLoadedState)
-                    for (Product data in state.products)
+                    for (ProductModel data in state.products)
                       Text(
                         state.products.isNotEmpty
                             ? "${data.name}"
@@ -65,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     BannerItemWidget(model: state.homeModel),
                     Container(
-                      margin: const EdgeInsets.all(MySizes.widgetSideSpace/2),
+                      margin: const EdgeInsets.all(MySizes.widgetSideSpace / 2),
                       child: Column(
                         children: [
                           Row(
@@ -95,7 +96,8 @@ class HomeScreen extends StatelessWidget {
                             crossAxisSpacing: 4.0,
                             childAspectRatio: 1 / 1.3,
                             children: List.generate(
-                                state.homeModel.data!.products!.length, (index) {
+                                state.homeModel.data!.products!.length,
+                                (index) {
                               return ProductItemWidget(
                                 product: state.homeModel.data!.products![index],
                               );

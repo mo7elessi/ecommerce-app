@@ -9,4 +9,6 @@ class Routes {
   static const String wrapperScreen = "wrapper_screen";
   static const String productsByCategoryScreen = "products_by_category";
   static const String mainLayoutScreen = "main_layout";
+  static const String productDetailsScreen = "product_details";
+  static const String notificationsScreen = "notification";
 }

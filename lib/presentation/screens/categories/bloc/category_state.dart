@@ -9,21 +9,21 @@ class CategoryInitial extends CategoryState {}
 class CategoriesLoadingState extends CategoryState {}
 
 class CategoriesLoadedState extends CategoryState {
-  final CategoryModel category;
+  final List<CategoryModel> category;
 
-  CategoriesLoadedState(this.category);
+  CategoriesLoadedState({required this.category});
 }
 
 class CategoriesErrorState extends CategoryState {
   final String error;
 
-  CategoriesErrorState(this.error);
+  CategoriesErrorState({required this.error});
 }
 
 class ProductsByCategoryLoadingState extends CategoryState {}
 
 class ProductsByCategoryLoadedState extends CategoryState {
-  final List<Product> product;
+  final List<ProductModel> product;
 
   ProductsByCategoryLoadedState({required this.product});
 }
@@ -31,5 +31,5 @@ class ProductsByCategoryLoadedState extends CategoryState {
 class ProductsByCategoryErrorState extends CategoryState {
   final String error;
 
-  ProductsByCategoryErrorState(this.error);
+  ProductsByCategoryErrorState({required this.error});
 }

@@ -36,7 +36,7 @@ class CartData {
 class CartItems {
   dynamic id;
   dynamic quantity;
-  Product? product;
+  ProductModel? product;
 
   CartItems({this.id, this.quantity, this.product});
 
@@ -44,6 +44,6 @@ class CartItems {
     id = json['id'];
     quantity = json['quantity'];
     product =
-        json['product'] != null ? Product.fromJson(json['product']) : null;
+        json['product'] != null ? ProductModel.fromJson(json['product']) : null;
   }
 }

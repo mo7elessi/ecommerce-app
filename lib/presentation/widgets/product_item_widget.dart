@@ -2,12 +2,12 @@ import 'package:bloc_state_managment/core/util/my_box_decoration.dart';
 import 'package:bloc_state_managment/data/model/product_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/routes/routes.dart';
 import '../../core/themes/app_theme.dart';
-import '../screens/product/product_details.dart';
 import 'discount_widget.dart';
 
 class ProductItemWidget extends StatelessWidget {
-  final Product product;
+  final ProductModel product;
 
   const ProductItemWidget({
     Key? key,
@@ -28,7 +28,6 @@ class ProductItemWidget extends StatelessWidget {
                 Center(
                   child: Image(
                     image: NetworkImage(product.image!),
-                    //    width: MySizes.productImageWidth,
                     height: MySizes.productImageHeight,
                   ),
                 ),
@@ -48,14 +47,14 @@ class ProductItemWidget extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text(
-                          '${product.price.round()} EGP',
-                          style:
-                              Theme.of(context).textTheme.titleSmall!.copyWith(
-                                    color: MyColors.primaryColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
+                        Text('${product.price.round()} EGP',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: MyColors.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                )),
                         const Spacer(),
                         InkWell(
                           onTap: () {},
@@ -80,11 +79,11 @@ class ProductItemWidget extends StatelessWidget {
         ],
       ),
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return ProductDetailsScreen(product: product);
-          },
-        ));
+        Navigator.pushNamed(
+          context,
+          Routes.productDetailsScreen,
+          arguments: product,
+        );
       },
     );
   }

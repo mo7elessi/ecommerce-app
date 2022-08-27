@@ -24,14 +24,14 @@ class FetchCartErrorState extends CartState {
 class AddOrRemoveProductFromCartState extends CartState {
   final CartItems cartItems;
 
-  AddOrRemoveProductFromCartState(this.cartItems);
+  AddOrRemoveProductFromCartState({required this.cartItems});
 }
 
 //update product quantity
 class UpdateProductQuantityState extends CartState {
   final CartModel cartModel;
 
-  UpdateProductQuantityState(this.cartModel);
+  UpdateProductQuantityState({required this.cartModel});
 }
 
 class IncrementCartItemState extends CartState {}

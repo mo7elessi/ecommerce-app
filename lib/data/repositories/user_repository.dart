@@ -1,12 +1,16 @@
+import 'package:bloc_state_managment/core/error/exceptions.dart';
+import 'package:bloc_state_managment/core/error/failure.dart';
 import 'package:bloc_state_managment/data/model/user_model.dart';
 import 'package:bloc_state_managment/data/network/end_points.dart';
 import 'package:bloc_state_managment/data/network/remote/dio_helper.dart';
+import 'package:dartz/dartz.dart';
+
+typedef Response = Either<Failure, UserResponse>;
 
 class UserRepository {
-  Future<UserModel> createUser({required UserData userModel}) async {
-    var request = await DioHelper.postData(
+  Future<Response> createUser({required UserModel userModel}) async {
+    var result = await DioHelper.postData(
       url: Endpoints.register,
-      //if found error, please check model!
       data: {
         'name': userModel.name,
         'phone': userModel.phone,
@@ -14,50 +18,58 @@ class UserRepository {
         'password': userModel.password,
       },
     );
-    return UserModel.fromJson(request.data);
+    return func(result: result);
   }
 
-  Future<UserModel> login({
+  Future<Response> login({
     required String email,
     required String password,
   }) async {
-    var request = await DioHelper.postData(
+    var result = await DioHelper.postData(
       url: Endpoints.login,
       data: {'email': email, 'password': password},
     );
-    return UserModel.fromJson(request.data);
+    return func(result: result);
   }
 
-  Future<UserModel> verifyEmail({
+  Future<Response> verifyEmail({
     required String email,
   }) async {
-    var request = await DioHelper.postData(
+    var result = await DioHelper.postData(
       url: Endpoints.verifyEmail,
       data: {'email': email},
     );
-    return UserModel.fromJson(request.data);
+    return func(result: result);
   }
 
-  Future<UserModel> verifyCode({
+  Future<Response> verifyCode({
     required String email,
     required String code,
   }) async {
-    var request = await DioHelper.postData(
+    var result = await DioHelper.postData(
       url: Endpoints.verifyCode,
-      data: {'email': email,'code':code},
+      data: {'email': email, 'code': code},
     );
-    return UserModel.fromJson(request.data);
+    return func(result: result);
   }
 
-  Future<UserModel> resetPassword({
+  Future<Response> resetPassword({
     required String email,
     required String code,
     required String password,
   }) async {
-    var request = await DioHelper.postData(
+    var result = await DioHelper.postData(
       url: Endpoints.resetPassword,
-      data: {'email': email,'code':code,'password':password},
+      data: {'email': email, 'code': code, 'password': password},
     );
-    return UserModel.fromJson(request.data);
+    return func(result: result);
+  }
+
+  Future<Response> func({required var result}) async {
+    try {
+      return Right(UserResponse.fromJson(result.data));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
   }
 }

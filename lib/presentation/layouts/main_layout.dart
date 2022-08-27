@@ -1,4 +1,6 @@
+import 'package:bloc_state_managment/core/routes/routes.dart';
 import 'package:bloc_state_managment/presentation/layouts/bloc/main_layout_bloc.dart';
+import 'package:bloc_state_managment/presentation/screens/favorite/favorite_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc_state_managment/presentation/screens/cart/cart_screen.dart';
@@ -20,6 +22,14 @@ class MainLayout extends StatelessWidget {
               titles[bloc.index],
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.notificationsScreen);
+                },
+                icon: const Icon(Icons.notifications),
+              ),
+            ],
           ),
           body: screens[bloc.index],
           bottomNavigationBar: BottomNavigationBar(
@@ -36,7 +46,7 @@ class MainLayout extends StatelessWidget {
     HomeScreen(),
     CategoriesScreen(),
     CartScreen(),
-    CartScreen(),
+    FavoriteScreen(),
     CartScreen()
   ];
   final List<BottomNavigationBarItem> items = const [

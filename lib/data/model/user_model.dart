@@ -1,18 +1,18 @@
-class UserModel {
+class UserResponse {
   bool? status;
   String? message;
-  UserData? data;
+  UserModel? data;
 
-  UserModel.fromJson(Map<String, dynamic> json) {
+  UserResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     if (json['data'] != null) {
-      data = UserData.fromJson(json['data']);
+      data = UserModel.fromJson(json['data']);
     }
   }
 }
 
-class UserData {
+class UserModel {
   dynamic id;
   String? name;
   String? phone;
@@ -23,9 +23,9 @@ class UserData {
   dynamic credit;
   String? token;
 
-  UserData(this.name, this.email, this.password, this.phone);
+  UserModel(this.name, this.email, this.password, this.phone);
 
-  UserData.fromJson(Map<String, dynamic> json) {
+  UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     email = json['email'];

@@ -9,5 +9,5 @@ class FetchCategoriesEvent extends CategoryEvent {}
 class FetchProductsByCategoryEvent extends CategoryEvent {
   final int categoryId;
 
-  FetchProductsByCategoryEvent({required this.categoryId});
+  const FetchProductsByCategoryEvent({required this.categoryId});
 }

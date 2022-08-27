@@ -6,7 +6,7 @@ import '../../../../core/themes/app_theme.dart';
 import '../../../../core/util/my_box_decoration.dart';
 
 class ProductImagesWidget extends StatelessWidget {
-  final Product product;
+  final ProductModel product;
 
   const ProductImagesWidget({
     Key? key,

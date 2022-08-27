@@ -1,4 +1,6 @@
 import 'package:bloc_state_managment/data/model/product_model.dart';
+import 'package:bloc_state_managment/data/repositories/cart_repository.dart';
+import 'package:bloc_state_managment/presentation/screens/product/widgets/change_quantity_widget.dart';
 import 'package:bloc_state_managment/presentation/screens/product/widgets/product_images_widget.dart';
 import 'package:bloc_state_managment/presentation/widgets/primary_button_widget.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,7 @@ import '../../widgets/secondary_button_widget.dart';
 import '../cart/bloc/bloc.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  final Product product;
+  final ProductModel product;
 
   const ProductDetailsScreen({
     Key? key,
@@ -19,8 +21,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
+    CartBloc cartBloc = CartBloc(cartRepository: CartRepositoryImpl());
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -68,27 +69,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: MySizes.verticalSpace * 3),
-                        Row(
-                          children: [
-                            const Text(
-                              'QUANTITY',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const Spacer(),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.add),
-                            ),
-                            const SizedBox(width: MySizes.horizontalSpace),
-                            Text("1",
-                                style: Theme.of(context).textTheme.bodyText1),
-                            const SizedBox(width: MySizes.horizontalSpace),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.remove),
-                            ),
-                          ],
-                        ),
+                        const ChangeQuantityWidget(),
                         const SizedBox(height: MySizes.verticalSpace),
                         const Text(
                           'MORE DETAILS',
@@ -110,25 +91,26 @@ class ProductDetailsScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(MySizes.widgetSideSpace),
                 child: BlocBuilder<CartBloc, CartState>(
+                  bloc: cartBloc,
                   builder: (context, state) {
                     return product.inCart!
                         ? SecondaryButtonWidget(
                             function: () {
-                              return context.read<CartBloc>().add(
-                                    AddOrRemoveProductFromCartEvent(
-                                      product.id,
-                                    ),
-                                  );
+                              return cartBloc.add(
+                                AddOrRemoveProductFromCartEvent(
+                                  product.id,
+                                ),
+                              );
                             },
                             text: "remove",
                           )
                         : PrimaryButtonWidget(
                             function: () {
-                              return context.read<CartBloc>().add(
-                                    AddOrRemoveProductFromCartEvent(
-                                      product.id,
-                                    ),
-                                  );
+                              return cartBloc.add(
+                                AddOrRemoveProductFromCartEvent(
+                                  product.id,
+                                ),
+                              );
                             },
                             text: "cart",
                           );

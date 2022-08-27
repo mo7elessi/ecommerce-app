@@ -6,18 +6,17 @@ abstract class UserState {
 
 class UserInitial extends UserState {}
 
-//test
 class UserLoadingState extends UserState {}
 
 class UserSuccessState extends UserState {
   final String message;
   final bool status;
 
-  UserSuccessState(this.message, this.status);
+  UserSuccessState({required this.message, required this.status});
 }
 
 class UserErrorState extends UserState {
   final String message;
 
-  UserErrorState(this.message);
+  UserErrorState({required this.message});
 }

@@ -1,4 +1,8 @@
+import 'package:bloc_state_managment/data/repositories/favorite_repository.dart';
+import 'package:bloc_state_managment/data/repositories/notification_repository.dart';
 import 'package:bloc_state_managment/presentation/layouts/bloc/main_layout_bloc.dart';
+import 'package:bloc_state_managment/presentation/screens/favorite/bloc/favorite_bloc.dart';
+import 'package:bloc_state_managment/presentation/screens/notifications/bloc/notification_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'data/repositories/cart_repository.dart';
@@ -23,15 +27,29 @@ List<BlocProvider> providers = [
     return UserBloc();
   }),
   BlocProvider<HomeBloc>(create: (context) {
-    return HomeBloc(HomeRepositoryImpl())..add(FetchHomeDataEvent());
+    return HomeBloc(
+      homeRepository: HomeRepositoryImpl(),
+    )..add(FetchHomeDataEvent());
   }),
   BlocProvider<ProductBloc>(create: (context) {
-    return ProductBloc(ProductRepositoryImpl());
+    return ProductBloc(productRepository: ProductRepositoryImpl());
   }),
   BlocProvider<CategoryBloc>(create: (context) {
-    return CategoryBloc(CategoryRepositoryImpl())..add(FetchCategoriesEvent());
+    return CategoryBloc(
+      categoryRepository: CategoryRepositoryImpl(),
+    )..add(FetchCategoriesEvent());
   }),
   BlocProvider<CartBloc>(create: (context) {
-    return CartBloc(CartRepositoryImpl())..add(FetchCartEvent());
+    return CartBloc(cartRepository: CartRepositoryImpl())
+      ..add(FetchCartEvent());
+  }),
+  BlocProvider<NotificationBloc>(create: (context) {
+    return NotificationBloc(repo: NotificationRepositoryImpl())
+      ..add(FetchNotificationsEvent());
+  }),
+  BlocProvider<FavoriteBloc>(create: (context) {
+    return FavoriteBloc(
+      favoriteRepository: FavoriteRepositoryImpl(),
+    )..add(FetchFavoriteEvent());
   }),
 ];

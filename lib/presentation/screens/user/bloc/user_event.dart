@@ -4,7 +4,7 @@ abstract class UserEvent {
 }
 
 class RegisterEvent extends UserEvent {
-  final UserData userData;
+  final UserModel userData;
 
   RegisterEvent(this.userData);
 }

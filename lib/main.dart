@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         title: 'Bloc Demo',
         onGenerateRoute: Routers.generateRoute,
         theme: MyTheme.theme,
-        home:  const LoginScreen(),
+        home:   MainLayout(),
       ),
     );
   }

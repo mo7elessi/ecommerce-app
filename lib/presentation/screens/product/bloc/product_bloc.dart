@@ -11,9 +11,9 @@ part 'product_event.dart';
 part 'product_state.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
-  ProductRepository? productRepository;
+  final ProductRepository productRepository;
 
-  ProductBloc(this.productRepository) : super(ProductInitial()) {
+  ProductBloc({required this.productRepository}) : super(ProductInitial()) {
     on<SearchEvent>(
       _onSearch,
       transformer: (eventsStream, mapper) => eventsStream
@@ -29,11 +29,10 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     Emitter<ProductState> emit,
   ) async {
     emit(SearchLoadingState());
-    try {
-      var result = await productRepository!.search(text: event.text);
-      emit(SearchLoadedState(products: result.data!.data!));
-    } catch (e) {
-      emit(SearchErrorState(e.toString()));
-    }
+    var failureOrProducts = await productRepository.search(text: event.text);
+    failureOrProducts.fold(
+      (failure) => emit(SearchErrorState("${failure.runtimeType}")),
+      (data) => emit((SearchLoadedState(products: data.data!.items!))),
+    );
   }
 }
